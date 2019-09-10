@@ -18,9 +18,7 @@ def load_config(name: str = "settings"):
     except FileNotFoundError as error:
         config, file_not_found = {}, error
 
-    schema = _preprocess_schema_rec(_handle_arbitrary_sections(schema, config))
-
-    validator = Validator(schema)
+    validator = Validator(_preprocess_schema_rec(schema, name))
     if not validator.validate(config):
         if file_not_found is not None:
             raise FileNotFoundError(file_not_found)
@@ -34,13 +32,6 @@ def load_config(name: str = "settings"):
 
 
 # ---------------------------- Private functions ------------------------------
-# ! Feature only available for top-level sections to simplify logic
-def _handle_arbitrary_sections(schema, config):
-    if list(schema.keys()) == ["__section__"]:
-        schema = {section: schema["__section__"].copy() for section in config}
-    return schema
-
-
 # ! Recursive for arbitrary nesting (use shallow configs to avoid overflow)
 def _preprocess_schema_rec(schema, name):
     for key, value in schema.items():

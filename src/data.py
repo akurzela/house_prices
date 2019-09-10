@@ -51,11 +51,18 @@ def _parse_credentials(query):
     key = header[len(prefix) :]
 
     if key not in keys:
-        raise QueryError(f'Credentials "{key}" not in "credentials.toml"')
+        raise CredentialsError(f'Credentials "{key}" not found')
 
     credentials = {k: v for k, v in config.items() if type(v) is not dict}
+    credentials = {**credentials, **config[key]}
 
-    return {**credentials, **config[key]}
+    if not credentials["user"]:
+        raise CredentialsError(f'Username for "{key}" not found')
+
+    if not credentials["password"]:
+        raise CredentialsError(f'Password for "{key}" not found')
+
+    return credentials
 
 
 # Build SQL query, replacing parameters with values read from config file
@@ -84,6 +91,10 @@ def _prepare_query(query):
 
 
 _get_query_path = lambda query: join("data", "queries", f"{query}.sql")
+
+
+class CredentialsError(Exception):
+    pass
 
 
 class QueryError(Exception):
