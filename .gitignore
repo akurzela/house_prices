@@ -4,3 +4,6 @@ config/*
 
 # Dependencies, managed by `poetry` and specified in `pyproject.toml`
 .venv
+
+# VSCode project-specific settings
+.vscode
