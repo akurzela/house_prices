@@ -2,6 +2,10 @@
 config/*
 !config/schemas
 
+# Database responses are cached but are too big to be tracked
+data/cache/*
+!data/cache/.gitkeep
+
 # Dependencies, managed by `poetry` and specified in `pyproject.toml`
 .venv
 
