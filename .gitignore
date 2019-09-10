@@ -1,0 +1,6 @@
+# Schemas provide structure and default values, configs are for experimenting
+config/*
+!config/schemas
+
+# Dependencies, managed by `poetry` and specified in `pyproject.toml`
+.venv
