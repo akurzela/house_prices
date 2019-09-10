@@ -8,6 +8,16 @@ Global system setup
     poetry config --local virtualenvs.in-project true
   ```
 
+VSCode
+------
+1. Add Python extension
+2. Specify formatter and linter in VSCode's settings
+  ```
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+  ```
+
 Project setup
 =============
 1. Install Python version specified in [.python-version](.python-version)
