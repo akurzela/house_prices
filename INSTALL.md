@@ -1,5 +1,5 @@
 Global system setup
--------------------
+===================
 1. Install [pyenv](https://github.com/pyenv/pyenv)
 2. Install [Python build dependencies](https://github.com/pyenv/pyenv/wiki#suggested-build-environment)
 3. Install [Poetry](https://poetry.eustace.io/docs/)
@@ -9,7 +9,7 @@ Global system setup
   ```
 
 Project setup
--------------
+=============
 1. Install Python version specified in [.python-version](.python-version)
   ```
     pyenv install <version>
