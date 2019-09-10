@@ -1,0 +1,7 @@
+[flake8]
+# E203: Space before ":" (black conflict)
+# E731: Lambda assignment
+ignore = E203,E731
+
+# Match maximum line length enforced by `black` formatter by default
+max-line-length = 88
