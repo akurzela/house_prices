@@ -6,9 +6,10 @@ import pandas as pd
 from psycopg2 import connect
 
 from src.config import load_config
+from src.preprocess import apply_preprocessor
 
 
-def load_dataset(query: str):
+def load_dataset(query: str, *, preprocess=True):
     """Load dataset from cache or database"""
 
     path = join("data", "cache", f"{query}.csv")
@@ -17,7 +18,12 @@ def load_dataset(query: str):
         df = fetch_dataset(query)
         df.to_csv(path, sep="\t", index=False)
 
-    return pd.read_csv(path, sep="\t")
+    df = pd.read_csv(path, sep="\t")
+
+    if preprocess:
+        df = apply_preprocessor(df, query)
+
+    return df
 
 
 def fetch_dataset(query: str):
