@@ -1,3 +1,5 @@
+-- Credentials: eusopdw
+
 SELECT org, warehouse, metric_date, value
 FROM daily.d_sop_network_viewer_actuals
 WHERE
