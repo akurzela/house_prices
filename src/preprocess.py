@@ -10,3 +10,7 @@ def apply_preprocessor(df: DataFrame, query: str):
         df = getattr(modules[__name__], f"preprocess_{query}")(df)
     except AttributeError:
         return df
+
+
+def preprocess_nvf(df: DataFrame):
+    return df[df["metric_date"] > "2017-06-01"]
