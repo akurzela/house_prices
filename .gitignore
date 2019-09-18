@@ -11,3 +11,6 @@ data/cache/*
 
 # VSCode project-specific settings
 .vscode
+
+# Python garbage
+*.pyc

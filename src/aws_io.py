@@ -6,7 +6,7 @@ import pandas as pd
 
 from psycopg2 import connect
 from src.config import load_config
-from src.data import CredentialsError
+from src.exceptions import CredentialsError
 
 
 def upload_dataframe_to_s3(df, bucket_name, output_filename):
@@ -35,7 +35,7 @@ def upload_file_to_s3(bucket_name, input_filepath, output_filename):
         output_filename (str): name that the file will take in s3.
     """
     if not os.path.exists(input_filepath):
-        raise ValueError(f"The file specified does not exist: {input_filepath}")
+        raise FileNotFoundError(f"The file specified does not exist: {input_filepath}")
     s3 = boto3.client("s3")
     with open(input_filepath, "rb") as f:
         s3.upload_fileobj(f, bucket_name, output_filename)
@@ -68,7 +68,7 @@ def delete_file_from_s3(bucket_name, filepath):
         ValueError: if the file specified is not found in the s3 bucket
     """
     if filepath not in list_files_in_s3_bucket(bucket_name):
-        raise ValueError(
+        raise FileNotFoundError(
             f"The filepath specified '{filepath}' does not exist in the"
             f" bucket '{bucket_name}'"
         )
@@ -104,7 +104,7 @@ def copy_csv_from_s3_to_db(bucket_name, filepath, destination_table, db_name):
 
 
 if __name__ == "__main__":
-
+    # Example of usage; to be removed.
     bucket_name = "test655321"
     filename = "test99.csv"
     example_df = pd.util.testing.makeDataFrame()
@@ -117,7 +117,6 @@ if __name__ == "__main__":
     list_of_files = list_files_in_s3_bucket(bucket_name)
 
     if filename in list_of_files:
-        print("File found!")
         copy_csv_from_s3_to_db(
             bucket_name=bucket_name,
             filepath=filename,

@@ -7,6 +7,7 @@ from psycopg2 import connect
 
 from src.config import load_config
 from src.preprocess import apply_preprocessor
+from src.exceptions import QueryError, CredentialsError
 
 
 def load_dataset(query: str, *, preprocess=True):
@@ -97,11 +98,3 @@ def _prepare_query(query):
 
 
 _get_query_path = lambda query: join("data", "queries", f"{query}.sql")
-
-
-class CredentialsError(Exception):
-    pass
-
-
-class QueryError(Exception):
-    pass

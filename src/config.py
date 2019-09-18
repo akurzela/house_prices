@@ -3,6 +3,8 @@ from os.path import join
 from cerberus import Validator
 from toml import decoder, load
 
+from src.exceptions import SchemaError, ValidationError
+
 
 def load_config(name: str = "settings"):
     """Load TOML config file and validate it with the associated schema"""
@@ -91,15 +93,6 @@ def _create_empty_sections_rec(schema, config):
         if value["type"] == "dict" and key not in config:
             config[key] = _create_empty_sections_rec(value["schema"], {})
     return config
-
-
-# ---------------------------- Custom exceptions ------------------------------
-class SchemaError(Exception):
-    pass
-
-
-class ValidationError(Exception):
-    pass
 
 
 # Improve legibility of validation errors reported by Cerberus
