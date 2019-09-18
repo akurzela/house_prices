@@ -10,7 +10,9 @@ Cerberus = "^1.3" # Schema validation
 pandas = "^0.25.1" # Table data analysis
 psycopg2 = "^2.8" # Connection to SQL databases
 toml = "^0.10" # Parser for TOML files
+boto3 = "^1.9"
 
 [tool.poetry.dev-dependencies]
 black = "^19.3b0" # Formatter
 flake8 = "^3.7" # Linter
+ipython = "^7.8"
