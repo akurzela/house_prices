@@ -34,8 +34,6 @@ def upload_file_to_s3(bucket_name, input_filepath, output_filename):
         input_filepath (str): path of an existing file.
         output_filename (str): name that the file will take in s3.
     """
-    if not os.path.exists(input_filepath):
-        raise FileNotFoundError(f"The file specified does not exist: {input_filepath}")
     s3 = boto3.client("s3")
     with open(input_filepath, "rb") as f:
         s3.upload_fileobj(f, bucket_name, output_filename)
