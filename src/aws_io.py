@@ -18,7 +18,7 @@ def upload_dataframe_to_s3(df, bucket_name, output_filename):
         output_filename (str): name that the file will take in s3.
     """
     temporary_filepath = tempfile.mkstemp()[1]
-    df.to_csv(temporary_filepath, sep=",", index=False, header=True)
+    df.to_csv(temporary_filepath, sep=",", index=False)
     upload_file_to_s3(
         bucket_name=bucket_name,
         input_filepath=temporary_filepath,
