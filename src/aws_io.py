@@ -103,11 +103,9 @@ def copy_csv_from_s3_to_db(bucket_name, filepath, destination_table, db_name):
     credentials = {k: v for k, v in config.items() if type(v) is not dict}
     credentials = {**credentials, **config[db_name]}
 
-    connection = connect(**credentials)
-    cursor = connection.cursor()
-    cursor.execute(query)
-    connection.commit()
-    connection.close()
+    with connect(**credentials) as conn:
+        conn.cursor().execute(query)
+        conn.commit()
 
 
 if __name__ == "__main__":
