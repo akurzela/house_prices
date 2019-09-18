@@ -85,6 +85,11 @@ def copy_csv_from_s3_to_db(bucket_name, filepath, destination_table, db_name):
         destination_table (str): structure.table to use to unload the csv content.
         db_name (str): name of the db where the table will be unloaded.
     """
+    if filepath not in list_files_in_s3_bucket(bucket_name):
+        raise FileNotFoundError(
+            f"The filepath specified '{filepath}' does not exist in the"
+            f" bucket '{bucket_name}'"
+        )
     creds = boto3.Session().get_credentials()
     query = (
         f"COPY {destination_table} from 's3://{bucket_name}/{filepath}' credentials "
