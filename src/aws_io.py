@@ -101,6 +101,8 @@ def copy_csv_from_s3_to_db(bucket_name, filepath, destination_table, db_name):
     connection = connect(**credentials)
     cursor = connection.cursor()
     cursor.execute(query)
+    connection.commit()
+    connection.close()
 
 
 if __name__ == "__main__":
