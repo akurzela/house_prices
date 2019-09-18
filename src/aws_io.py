@@ -11,7 +11,7 @@ from src.exceptions import CredentialsError
 
 def upload_dataframe_to_s3(df, bucket_name, output_filename):
     """Uploads a dataframe to s3 in csv format.
-    
+
     Args:
         df (pd.DataFrame): table intended to be uploaded.
         bucket_name (str): name of the bucket.
@@ -28,7 +28,7 @@ def upload_dataframe_to_s3(df, bucket_name, output_filename):
 
 def upload_file_to_s3(bucket_name, input_filepath, output_filename):
     """Takes a file existing locally and uploads it to the desired S3 bucket.
-    
+
     Args:
         bucket_name (str): name of the bucket.
         input_filepath (str): path of an existing file.
@@ -43,10 +43,10 @@ def upload_file_to_s3(bucket_name, input_filepath, output_filename):
 
 def list_files_in_s3_bucket(bucket_name):
     """Lists the content of a given s3 bucket.
-    
+
     Args:
         bucket_name (str): name of an existing bucket in the configured aws account
-    
+
     Returns:
         list: contents of the s3 bucket
     """
@@ -57,13 +57,13 @@ def list_files_in_s3_bucket(bucket_name):
 
 
 def delete_file_from_s3(bucket_name, filepath):
-    """Deletes an existing file in the specified bucket. If the file does not exist, 
+    """Deletes an existing file in the specified bucket. If the file does not exist,
     raises an error.
-    
+
     Args:
         bucket_name (str): name of an existing bucket in the configured aws account.
         filepath (str): remote path in s3 bucket to the file intended to be removed.
-    
+
     Raises:
         ValueError: if the file specified is not found in the s3 bucket
     """
@@ -78,7 +78,7 @@ def delete_file_from_s3(bucket_name, filepath):
 
 def copy_csv_from_s3_to_db(bucket_name, filepath, destination_table, db_name):
     """Copies an existing csv file from s3 to a specified DB.
-    
+
     Args:
         bucket_name (str): name of an existing bucket in the configured aws account.
         filepath (str): remote path in s3 bucket to the file intended to be unloaded.
