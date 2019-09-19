@@ -1,6 +1,5 @@
 import boto3
 import tempfile
-import os
 
 import pandas as pd
 
