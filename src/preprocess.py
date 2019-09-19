@@ -1,16 +1,20 @@
 from sys import modules
 
-from pandas import DataFrame
+import pandas as pd
+from warnings import warn
 
 
-def apply_preprocessor(df: DataFrame, query: str):
+def apply_preprocessor(df: pd.DataFrame, query: str):
     """Preprocess dataset (functions should be named 'preprocess_<query>')"""
 
     try:
-        df = getattr(modules[__name__], f"preprocess_{query}")(df)
+        f = getattr(modules[__name__], f"preprocess_{query}")
     except AttributeError:
-        return df
+        warn(f"No preprocessor found with name preprocess_{query}")
+        f = lambda x: x
+
+    return f(df)
 
 
-def preprocess_nvf(df: DataFrame):
+def preprocess_nvf(df: pd.DataFrame):
     return df[df["metric_date"] > "2017-06-01"]
