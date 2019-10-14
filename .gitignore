@@ -6,6 +6,10 @@ config/*
 data/cache/*
 !data/cache/.gitkeep
 
+# Logs folder
+logs/*
+!logs/.gitkeep
+
 # Dependencies, managed by `poetry` and specified in `pyproject.toml`
 .venv
 
