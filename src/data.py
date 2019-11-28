@@ -1,4 +1,5 @@
 from os.path import exists, join
+import os
 from re import findall
 
 import pandas as pd
@@ -98,3 +99,13 @@ def _prepare_query(query):
 
 
 _get_query_path = lambda query: join("data", "queries", f"{query}.sql")
+
+
+def clear_cache():
+    """Flush the cache, keeping the .gitkeep file
+    """
+    path = join("data", "cache")
+    file_list = os.listdir(path)
+    file_list.remove(".gitkeep")  # Exclude .gitkeep
+    for filename in file_list:
+        os.remove(join(path, filename))
