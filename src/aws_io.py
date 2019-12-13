@@ -43,14 +43,21 @@ def list_files_in_s3_bucket(bucket_name):
 
     Args:
         bucket_name (str): name of an existing bucket in the configured aws account
-
     Returns:
         list: contents of the s3 bucket
     """
     s3 = boto3.client("s3")
-    bucket = s3.list_objects(Bucket=bucket_name)
-    contents = [c["Key"] for c in bucket["Contents"]]
-    return contents
+    keys = []
+    kwargs = {"Bucket": bucket_name}
+    while True:
+        resp = s3.list_objects_v2(**kwargs)
+        for obj in resp["Contents"]:
+            keys.append(obj["Key"])
+        try:
+            kwargs["ContinuationToken"] = resp["NextContinuationToken"]
+        except KeyError:
+            break
+    return keys
 
 
 def delete_file_from_s3(bucket_name, filepath):
